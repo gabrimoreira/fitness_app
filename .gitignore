@@ -1,0 +1,25 @@
+# dependências
+node_modules/
+
+# build
+dist/
+dev-dist/
+
+# ambiente
+.env
+.env.*
+
+# dados pessoais de peso — o script é versionado, a saída dele não
+scripts/import-mfp/mfp-weight-export.json
+scripts/import-mfp/mfp-weight-export.csv
+scripts/import-mfp/.venv/
+__pycache__/
+
+# editores / SO
+.DS_Store
+*.local
+.vscode/*
+!.vscode/extensions.json
+
+# artefatos do build incremental do tsc
+*.tsbuildinfo

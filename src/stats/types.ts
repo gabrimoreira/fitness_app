@@ -32,3 +32,14 @@ export interface TrendPoint {
 
 /** Classificação de uma semana. `progresso` é um acréscimo ao SPEC — ver thresholds.ts. */
 export type WeekClass = 'boa' | 'progresso' | 'neutra' | 'fora-do-plano';
+
+/**
+ * Um ponto com sua linha de base para análise de desvio por dia da semana.
+ * `baselineKg` é nulo quando não há vizinhos suficientes (série de um ponto só).
+ */
+export interface DeviationPoint {
+  date: string;
+  weightKg: number;
+  baselineKg: number | null;
+  deviationKg: number | null;
+}

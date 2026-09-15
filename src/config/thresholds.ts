@@ -150,3 +150,30 @@ export const DEFAULT_SCHEDULE_DAYS = [1, 3, 5];
  * e este export é o único backup existente.
  */
 export const BACKUP_REMINDER_AFTER_DAYS = 30;
+
+/**
+ * Intervalo máximo, em dias, entre os dois pontos de tendência que definem o delta
+ * de uma semana. Acima disso a semana fica sem classificação em vez de receber uma
+ * duvidosa: normalizar para "por semana" um delta medido ao longo de dois meses
+ * descreve outra coisa, e depois de uma lacuna longa a própria EMA reiniciou no
+ * peso novo (alpha tende a 1), então o delta mede o degrau da lacuna e não o ritmo.
+ * 14 dias tolera uma semana perdida inteira.
+ */
+export const MAX_WEEK_COMPARISON_GAP_DAYS = 14;
+
+/**
+ * Dias de tendência acumulada necessários antes de classificar uma semana.
+ *
+ * A EMA começa no primeiro peso registrado (regra do SPEC) e leva algumas semanas
+ * para acumular o atraso de regime. Antes disso o delta da tendência subestima o
+ * ritmo real de forma previsível — medido numa rampa linear exatamente no alvo de
+ * 0,5%/semana: 60% do valor verdadeiro na 1ª semana, 81% na 2ª, 92% na 3ª, 97% na
+ * 4ª. Classificar nesse período diria "progresso" a quem está exatamente no alvo.
+ *
+ * Vale tanto para quem começa do zero quanto para quem volta depois de uma lacuna
+ * longa, que reinicia a tendência no peso novo.
+ *
+ * É a mesma postura que o SPEC já adota para a projeção, que não aparece com menos
+ * de três semanas de dados: sem base suficiente, não afirmar nada.
+ */
+export const CLASSIFICATION_WARMUP_DAYS = 21;
